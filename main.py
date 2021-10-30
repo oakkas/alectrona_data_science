@@ -4,3 +4,7 @@ for i in x:
   y.append(i*i)
 print(x)
 print(y)
+z = []
+for i in x:
+  z.append(i*i*i)
+print(z)
