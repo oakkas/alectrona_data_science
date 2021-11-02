@@ -1,65 +1,87 @@
 p_1. Create a function that takes two numbers as arguments and return their sum.
 
-Examples
-addition(3, 2) ➞ 5
+def myFunc(x,y):
+    return x+y
 
-addition(-3, -6) ➞ - 9
+print(myFunc(-2,-5))
 
-addition(7, 3) ➞ 10
 
 p_2. Create a function that takes a number as an argument, increments the number by + 1 and returns the result.
-
 Examples
 addition(0) ➞ 1
-
 addition(9) ➞ 10
-
 addition(-3) ➞ - 2
 
-p_3. Write a function that takes an integer minutes and converts it to seconds.
+SOLUTION:
+def addition(x):
+    return 1 +x
 
+print(addition(0))
+print(addition(9))
+print(addition(-3))
+
+p_3. Write a function that takes an integer minutes and converts it to seconds.
 Examples
 convert(5) ➞ 300
-
 convert(3) ➞ 180
-
 convert(2) ➞ 120
 
-p_4. Write a function that takes the base and height of a triangle and return its area.
+SOLUTION:
+def convert(x):
+    return 60*x
 
+print(convert(5))
+print(convert(3))
+print(convert(2))
+
+p_4. Write a function that takes the base and height of a triangle and return its area.
 Examples
 tri_area(3, 2) ➞ 3
-
 tri_area(7, 4) ➞ 14
-
 tri_area(10, 10) ➞ 50
 
-p_5. Create a function that finds the maximum range of a triangle's third edge, where the side lengths are all integers.
+SOLUTION:
+def tri_area(x, y):
+    return x*y*0.5
 
+print (tri_area(3, 2))
+print (tri_area(7, 4))
+print (tri_area(10, 10))
+
+
+p_5. Create a function that finds the maximum range of a triangle's third edge, where the side lengths are all integers.
 Examples
 next_edge(8, 10) ➞ 17
-
 next_edge(5, 7) ➞ 11
-
 next_edge(9, 2) ➞ 10
 
-p_6. Write a function that stutters a word as if someone is struggling to read it. The first two letters are repeated twice with an ellipsis ... and space after each, and then the word is pronounced with a question mark ?.
+SOLUTION:
+def next_edge(x, y):
+    return x+y-1
+print (next_edge(8, 10))
+print (next_edge(5, 7))
+print (next_edge(9, 2))
 
+
+p_6. Write a function that stutters a word as if someone is struggling to read it. The first two letters are repeated twice with an ellipsis ... and space after each, and then the word is pronounced with a question mark ?.
 Examples
 stutter("incredible") ➞ "in... in... incredible?"
-
 stutter("enthusiastic") ➞ "en... en... enthusiastic?"
-
 stutter("outstanding") ➞ "ou... ou... outstanding?"
+
+SOLUTION:
+def stutter(x):
+  print(x[0:2] , "... ", x[0:2], "... ",x)
+
+stutter("incredable")
+stutter("enthusiastic")
+stutter("outstanding")
 
 p_7. Create a function that takes two arguments: the original price and the discount percentage as integers and returns the final price after the discount.
 
-
 Examples
 dis(1500, 50) ➞ 750
-
 dis(89, 20) ➞ 71.2
-
 dis(100, 75) ➞ 25
 
 p_8. Luke Skywalker has family and friends. Help him remind them who is who. Given a string with a name, return the relation of that person to Luke.
