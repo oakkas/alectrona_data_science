@@ -1,0 +1,212 @@
+p_1. Create a function that takes two numbers as arguments and return their sum.
+
+Examples
+addition(3, 2) ➞ 5
+
+addition(-3, -6) ➞ - 9
+
+addition(7, 3) ➞ 10
+
+p_2. Create a function that takes a number as an argument, increments the number by + 1 and returns the result.
+
+Examples
+addition(0) ➞ 1
+
+addition(9) ➞ 10
+
+addition(-3) ➞ - 2
+
+p_3. Write a function that takes an integer minutes and converts it to seconds.
+
+Examples
+convert(5) ➞ 300
+
+convert(3) ➞ 180
+
+convert(2) ➞ 120
+
+p_4. Write a function that takes the base and height of a triangle and return its area.
+
+Examples
+tri_area(3, 2) ➞ 3
+
+tri_area(7, 4) ➞ 14
+
+tri_area(10, 10) ➞ 50
+
+p_5. Create a function that finds the maximum range of a triangle's third edge, where the side lengths are all integers.
+
+Examples
+next_edge(8, 10) ➞ 17
+
+next_edge(5, 7) ➞ 11
+
+next_edge(9, 2) ➞ 10
+
+p_6. Write a function that stutters a word as if someone is struggling to read it. The first two letters are repeated twice with an ellipsis ... and space after each, and then the word is pronounced with a question mark ?.
+
+Examples
+stutter("incredible") ➞ "in... in... incredible?"
+
+stutter("enthusiastic") ➞ "en... en... enthusiastic?"
+
+stutter("outstanding") ➞ "ou... ou... outstanding?"
+
+p_7. Create a function that takes two arguments: the original price and the discount percentage as integers and returns the final price after the discount.
+
+
+Examples
+dis(1500, 50) ➞ 750
+
+dis(89, 20) ➞ 71.2
+
+dis(100, 75) ➞ 25
+
+p_8. Luke Skywalker has family and friends. Help him remind them who is who. Given a string with a name, return the relation of that person to Luke.
+
+Person	      Relation
+Darth Vader	  father
+Leia	        sister
+Han	          brother in law
+R2D2	      droid
+
+Examples
+relation_to_luke("Darth Vader") ➞ "Luke, I am your father."
+
+relation_to_luke("Leia") ➞ "Luke, I am your sister."
+
+relation_to_luke("Han") ➞ "Luke, I am your brother in law."
+
+p_9. You are given a list of dates in the format Dec 11 and a month in the format Dec as arguments. Each date represents a video that was uploaded on that day. Return the number of uploads for a given month.
+
+Examples
+upload_count(["Sept 22", "Sept 21", "Oct 15"], "Sept") ➞ 2
+
+upload_count(["Sept 22", "Sept 21", "Oct 15"], "Oct") ➞ 1
+
+p_10. Create a function that takes a number num and returns its length.
+
+Examples
+number_length(10) ➞ 2
+
+number_length(5000) ➞ 4
+
+number_length(0) ➞ 1
+
+p_11. Create a function that takes a number as an argument and returns "Fizz", "Buzz" or "FizzBuzz".
+
+If the number is a multiple of 3 the output should be "Fizz".
+If the number given is a multiple of 5, the output should be "Buzz".
+If the number given is a multiple of both 3 and 5, the output should be "FizzBuzz".
+If the number is not a multiple of either 3 or 5, the number should be output on its own as shown in the examples below.
+The output should always be a string even if it is not a multiple of 3 or 5.
+Examples
+fizz_buzz(3) ➞ "Fizz"
+
+fizz_buzz(5) ➞ "Buzz"
+
+fizz_buzz(15) ➞ "FizzBuzz"
+
+fizz_buzz(4) ➞ "4"
+
+p_12. You work for a manufacturer, and have been asked to calculate the total profit made on the sales of a product. You are given a dictionary containing the cost price per unit(in dollars), sell price per unit(in dollars), and the starting inventory. Return the total profit made, rounded to the nearest dollar.
+
+Examples
+profit({
+    "cost_price": 32.67,
+    "sell_price": 45.00,
+    "inventory": 1200
+}) ➞ 14796
+
+profit({
+    "cost_price": 225.89,
+    "sell_price": 550.00,
+    "inventory": 100
+}) ➞ 32411
+
+profit({
+    "cost_price": 2.77,
+    "sell_price": 7.95,
+    "inventory": 8500
+}) ➞ 44030
+
+p_13. Create a function to perform basic arithmetic operations that includes addition, subtraction, multiplication and division on a string number(e.g. "12 + 24" or "23 - 21" or "12 // 12" or "12 * 21").
+
+Here, we have 1 followed by a space, operator followed by another space and 2. For the challenge, we are going to have only two numbers between 1 valid operator. The return value should be a number.
+
+eval() is not allowed. In case of division, whenever the second number equals "0" return -1.
+
+For example:
+
+"15 // 0"  ➞ - 1
+Examples
+arithmetic_operation("12 + 12") ➞ 24 // 12 + 12 = 24
+
+arithmetic_operation("12 - 12") ➞ 24 // 12 - 12 = 0
+
+arithmetic_operation("12 * 12") ➞ 144 // 12 * 12 = 144
+
+arithmetic_operation("12 // 0") ➞ - 1 // 12 / 0 = -1
+
+p_14. Create a function that takes an integer n and returns the factorial of factorials. See below examples for a better understanding:
+
+Examples
+fact_of_fact(4) ➞ 288
+# 4! * 3! * 2! * 1! = 288
+
+fact_of_fact(5) ➞ 34560
+
+fact_of_fact(6) ➞ 24883200
+
+p_15. A word nest is created by taking a starting word, and generating a new string by placing the word inside itself. This process is then repeated.
+
+Nesting 3 times with the word "incredible":
+
+start = incredible
+first = incre(incredible)dible
+second = increin(incredible)credibledible
+third = increinincr(incredible)ediblecredibledible
+The final nest is increinincrincredibleediblecredibledible(depth=3)
+
+Valid word nests can always be collapsed to show the starting word, by reversing the process above:
+
+word = "incredible"
+nest = "increinincrincredibleediblecredibledible"
+
+Steps:
+= > "increinincrincredibleediblecredibledible"  # starting nest
+= > "increinincr(incredible)ediblecredibledible"  # find word in nest
+= > "increinincr            ediblecredibledible"  # remove word
+= > "increinincrediblecredibledible"  # join remaining halves
+= > "increin(incredible)credibledible"  # find word in nest...
+
+... repeat steps until single word remains
+
+= > "incredible" (return True as "incredible"=word)
+When invalid word nests are collapsed, the starting word isn't found:
+
+word = "spring"
+nest = "sprspspspringringringg"
+
+Steps:
+= > "sprspspspringringringg"  # starting nest
+= > "sprspsp(spring)ringringg"  # find word in nest
+= > "sprspsp        ringringg"  # remove word
+= > "sprspspringringg"  # join remaining halves
+= > "sprsp(spring)ringg"  # find word in nest...
+
+... repeat steps until single word remains
+
+= > "sprg" (return False as "sprig" != "spring")
+Given a starting word and a final word nest, return True if the word nest is valid. Return False otherwise.
+
+Examples
+valid_word_nest("deep", "deep") ➞ True
+
+valid_word_nest("novel", "nonnonovnovnovelelelvelovelvel") ➞ True
+
+valid_word_nest("painter", "ppaintppapaipainterinternteraintererainter") ➞ False
+# Doesn't show starting word after being collapsed.
+
+valid_word_nest("shape", "sssshapeshapehahapehpeape") ➞ False
+# Word placed outside, not inside itself.
