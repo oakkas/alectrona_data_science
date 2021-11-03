@@ -64,3 +64,38 @@ stutter("incredable")
 stutter("enthusiastic")
 stutter("outstanding")
 
+
+def Discount(x,y):
+    return x-(0.01*x*y)
+
+print(Discount(1500, 50))
+print(Discount(89, 20))
+print(Discount(100, 75))
+
+
+
+relation_to_luke = {
+    "Darth Vader"	: "father",
+    "Leia" : "sister",
+    "Han" : "brother in law",
+    "R2D2" : "droid"
+}
+x = relation_to_luke. get("Leia")
+print("Luke, I am your " + x)
+print(relation_to_luke["Han"])
+
+
+def number_length(x):
+    y = str(x)
+    print(len(y))
+number_length(400)
+    
+def upload_date(dates, month):
+    count = 0
+    for date in dates:
+        if month in date:
+            count+=1
+    print(count)
+
+upload_date(["Sept 22", "Sept 21", "Oct 15"], "Sept")
+upload_date(["Sept 22", "Sept 21", "Oct 15"], "Oct")
