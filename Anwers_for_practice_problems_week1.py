@@ -83,6 +83,24 @@ def relation_to_luke(relation):             # problem 8
 
 relation_to_luke("R2D2")
 
+##################
+#p_9.
+
+##################
+#p_10.
+
+##################
+#p_11.
+
+for num in range(1, 51):                 # problem 11
+    if num % 3 == 0 and num % 5 == 0:
+        print("FizzBuzz")
+    elif num % 3 == 0:
+        print("Fizz")
+    elif num % 5 == 0:
+        print("Buzz")
+    else:
+        print(num)
 
 
 
