@@ -1,0 +1,12 @@
+
+1. Let's create a person class which has name, age, gender attributes.
+2. Using above person class, create a student class. It has all the attributes from person,
+  and courses, schedule attributes. Student takes and drop courses, study, take exam. When asked student can display his/her schedule. 
+3. Create a course class with attributes description, credit and course_schedule, exam_schedule, instructor. One should be able to display course schedule and other info seperatelly. 
+4. Create an instructor class from Person. In addition to attributes from person, it has courses, schedule, rating attributes. Instructor can open a new course. When asked instructor can display his/her schedule.
+
+5. Create an instance of instructor, student. Have instructor create a course (maybe Python), and studnet takes the course. Create another instructor with Math course and student takes that one as well. 
+
+6. Display student's current schedule.
+
+We will be keep adding to the practice. Please come prepared and with your ideas and imagination.
