@@ -182,58 +182,59 @@ print(aritmatic_operation("11 / 0"))
 print(range(1, 5))
 
 
-def fact(n):
-    result = 1
-    for i in range(1, n+1):
-        result *= i
-    return result
 
 
-def fact_of_fact(n):
-    result = 1
-    for i in range(1, n+1):
-        result *= fact(i)
-    return result
+
+def multiply(numbers):
+    total=1
+    for x in numbers:
+        total*=x
+    return total
+
+x=([2,3,4,5])
+print (multiply(x))
 
 
-print(fact_of_fact(5))
+class triangle:
+    def __init__(self,a,b,c):
+        self.a = a
+        self.b = b
+        self.c = c
+    def perimeter(self):
+        result = self.a+self.b+self.c
+        return result
 
+triangle1 = triangle(3,4,5)
+p_cal= triangle1.perimeter()
+print(p_cal)
 
-word = "incredible"
-nest = "increinincrincredibleediblecredibledible"
-print(len(nest))
-print(nest[0:11])
-print(nest[11:21])
+        
+class polygnal:
+    def __init__(self,sides):
+        self.sides=sides
 
-nest1 = nest[0:11]+nest[21:40]
-print(nest1)
-print(len(nest1))
+    def perimtr(self):
+        return sum(self.sides)
 
+class rectangle(polygnal):
+    def perimetr(self):
+        print("triangle has 2 dimensiaol shape")     
 
-def find_word(nest, word):
-    word_len = len(word)
-    # print(word_len)
-    for i in range(len(nest)-word_len):
-        # print(i)
-        if(nest[i: i + word_len] == word):
-            return i
-    return -1
+rectangle1= rectangle([2,3,4,5])
+r1= rectangle1.perimtr()
+print(r1)
 
+rectangle1.perimetr()
 
-def valid_word_nest(nest, word):
-    while len(nest) > len(word):
-        pos = find_word(nest, word)
-        if pos == -1:
-            return False
-        new_nest = nest[0:pos]+nest[pos+len(word):]
-        print(new_nest)
-        nest = new_nest
-    return nest==word
+class Person:
+    def__init__(self,name,age,gender):
+    self.name = name 
+    self.age = age 
+    self.gender = gender
 
-
-print(find_word("increinincrincredibleediblecredibledible", "incredible"))
-print(find_word("sprspspspringringringg", "spring"))
-
-print(valid_word_nest("increinincrincredibleediblecredibledible", "incredible"))
-print(valid_word_nest("sprspspspringringringg", "spring"))
-
+class Student(Person):
+    def__init__(self, courses, schedule):
+        self.courses=courses
+        self.schedule = schedule
+    def display_schedule(self,):
+        schedule
