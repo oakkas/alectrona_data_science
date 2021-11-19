@@ -115,6 +115,68 @@ class LoginForm(qtw.QWidget):
             self.authenticated.emit(username)
         else:
             qtw.QMessageBox.critical(self, 'Failed', 'Please enter corect credentials!')
+
+class CourseDisplay(qtw.QWidget):
+
+    submitted = qtc.pyqtSignal(str)
+
+    def __init__(self, course, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.course = course
+        self.setLayout(qtw.QFormLayout())
+        self.course_name = qtw.QLabel(f"Course Name: {course['name']}")
+        self.course_instructor = qtw.QLabel(f"Course Instructor: {course['instructor']}")
+        self.course_credits = qtw.QLabel(f"Course Credits: {course['credits']}")
+        schedule_text = "\n"
+        for day in course['schedule']:
+            day_key = list(day.keys())[0]
+            schedule_text += f"{day_key}: "
+            for i, hour in enumerate(day[day_key]):
+                if i == len(day[day_key]) - 1:
+                    schedule_text += f"{hour}\n"
+                else:
+                    schedule_text += f"{hour}, "
+
+                
+        self.course_schedule = qtw.QLabel(f"Course Schedule: {schedule_text}")
+
+        self.submit_button = qtw.QPushButton('Take COurse', clicked = self.on_submit)
+
+
+        self.layout().addRow('', self.course_name)
+        self.layout().addRow('', self.course_instructor)
+        self.layout().addRow('', self.course_credits)
+        self.layout().addRow('', self.course_schedule)
+        self.layout().addRow('', self.submit_button)
+    
+    def on_submit(self):
+        self.submitted.emit(self.course['name'])
+
+class SearchWidget(qtw.QWidget):
+
+    submitted = qtc.pyqtSignal(str)
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.setLayout(qtw.QFormLayout())
+        self.term_input = qtw.QLineEdit()
+        # self.case_checkbox = qtw.QCheckBox('Case Sensitive')
+        search_image = qtg.QPixmap(':/search.svg')
+        self.submit_button = qtw.QPushButton('Search', clicked = self.on_submit, icon = qtg.QIcon(search_image))
+
+        
+        # self.layout().addRow(qtw.QLabel(pixmap = search_image))
+
+        self.layout().addRow('Enter course name:', self.term_input)
+        # self.layout().addRow('', self.case_checkbox)
+        self.layout().addRow('', self.submit_button)
+    
+    def on_submit(self):
+        term = self.term_input.text()
+        # case_sensitive = (self.case_checkbox.checkState() == qtc.Qt.Checked)
+        # self.submitted.emit(term, case_sensitive)
+        self.submitted.emit(term)
+
     
 
 class Schedule(qtw.QMainWindow):
@@ -122,6 +184,7 @@ class Schedule(qtw.QMainWindow):
         super().__init__(*args, **kwargs)
         # My code will go here
         
+        self.courses = []
         self.table_widget = ScheduleTable()
         
         self.login_widget = LoginForm()
@@ -138,18 +201,47 @@ class Schedule(qtw.QMainWindow):
         self.setStatusBar(self.statusbar)
         qtc.QMetaObject.connectSlotsByName(self)
 
-        # My code ends here
+        # Dockwidget
+        self.serach_dock = qtw.QDockWidget()
+        self.search_widget = SearchWidget()
+        self.serach_dock.setWidget(self.search_widget)
+
+        self.search_widget.submitted.connect(self.search_course)
+        self.current_course_widget = None
+    
         self.show()
     
     def add_course(self, course):
-        self.table_widget.add_course(course)
-        # pass
+        self.courses.append(course)
+    
+    def take_course(self, course_name):
+        for course in self.courses:
+            if course['name'] == course_name:
+                self.table_widget.add_course(course)
+
     
     def user_logged_in(self, username):
         self.login_widget.close()
         self.setCentralWidget(self.table_widget)
-        self.resize(700, 455)
+        self.resize(1000, 455)
+
+        self.addDockWidget(qtc.Qt.RightDockWidgetArea, self.serach_dock)
+
         self.show()
+        
+    def search_course(self, term): 
+        for course in self.courses:
+            if course['name'] == term:
+                course_widget = CourseDisplay(course)
+                course_widget.submitted.connect(self.take_course)
+                if self.current_course_widget:
+                    self.current_course_widget.close()
+                self.current_course_widget = course_widget
+                self.search_widget.layout().addRow(course_widget)
+                
+                # qtw.QMessageBox.information(self, 'Sucess', f'{course["name"]} found')
+            else:
+                self.statusBar().showMessage('No matches found', 3000)
 
 
 
@@ -157,12 +249,13 @@ class Schedule(qtw.QMainWindow):
 if __name__ == "__main__":
     app = qtw.QApplication(sys.argv)
     w = Schedule()
-    math = {'name': 'Math-101', 'schedule': [{'Monday': ['09 AM - 10 AM', '10 AM - 11 AM']}, {
-        'Wednesday': ['12 PM - 01 PM', '01 PM - 02 PM']}]}
-    cs = {'name': 'CS-101', 'schedule': [{'Tuesday': ['10 AM - 11 AM', '11 AM - 12 PM']}, {
-        'Thursday': ['11 AM - 12 PM', '12 PM - 01 PM']}]}
-    eng = {'name': 'ENG-101', 'schedule': [{'Monday': ['02 PM - 03 PM',
-                                                       '03 PM - 04 PM']}, {'Friday': ['10 AM - 11 AM', '11 AM - 12 PM']}]}
+    math = {'name': 'Math-101', 'schedule': [{'Monday': ['09 AM - 10 AM', '10 AM - 11 AM']}, {'Wednesday': ['12 PM - 01 PM', '01 PM - 02 PM']}],
+          "credits": 3, "instructor": "Jhon Snow", "exam_schedule": []}
+    cs = {'name': 'CS-101', 'schedule': [{'Tuesday': ['10 AM - 11 AM', '11 AM - 12 PM']}, {'Thursday': ['11 AM - 12 PM', '12 PM - 01 PM']}],
+        "credits": 3, "instructor": "Julia Hu", "exam_schedule": []}
+    eng = {'name': 'ENG-101', 'schedule': [{'Monday': ['02 PM - 03 PM', '03 PM - 04 PM']}, {'Friday': ['10 AM - 11 AM', '11 AM - 12 PM']}],
+         "credits": 3, "instructor": "Jhon Snow", "exam_schedule": []}
+
     w.add_course(math)
     w.add_course(cs)
     w.add_course(eng)
