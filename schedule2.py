@@ -9,7 +9,7 @@ from PyQt5 import QtGui as qtg
 BASEDIR = os.path.dirname(__file__)
 
 
-class MainWindow(qtw.QMainWindow):
+class Schedule(qtw.QMainWindow):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         # My code will go here
@@ -90,7 +90,7 @@ class MainWindow(qtw.QMainWindow):
 
 if __name__ == "__main__":
     app = qtw.QApplication(sys.argv)
-    w = MainWindow()
+    w = Schedule()
     math = {'name': 'Math-101', 'schedule': [{'Monday': ['09 AM - 10 AM', '10 AM - 11 AM']}, {
         'Wednesday': ['12 PM - 01 PM', '01 PM - 02 PM']}]}
     cs = {'name': 'CS-101', 'schedule': [{'Tuesday': ['10 AM - 11 AM', '11 AM - 12 PM']}, {
