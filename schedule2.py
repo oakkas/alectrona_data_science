@@ -4,7 +4,7 @@ from PyQt5 import QtWidgets as qtw
 from PyQt5 import QtCore as qtc
 from PyQt5 import QtGui as qtg
 
-import resources
+# import resources
 
 BASEDIR = os.path.dirname(__file__)
 
