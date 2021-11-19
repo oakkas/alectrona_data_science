@@ -123,7 +123,7 @@ class Schedule(qtw.QMainWindow):
         # My code will go here
         
         self.table_widget = ScheduleTable()
-        # # add table to Main
+        
         self.login_widget = LoginForm()
         self.login_widget.authenticated.connect(self.user_logged_in)
         self.setCentralWidget(self.login_widget)
@@ -142,8 +142,8 @@ class Schedule(qtw.QMainWindow):
         self.show()
     
     def add_course(self, course):
-        # self.table_widget.add_course(course)
-        pass
+        self.table_widget.add_course(course)
+        # pass
     
     def user_logged_in(self, username):
         self.login_widget.close()
