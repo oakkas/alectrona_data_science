@@ -13,7 +13,9 @@ class ScheduleTable(qtw.QTableWidget):
         super().__init__(*args, **kwargs)
         self.days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday']
         self.hours = ['07 AM - 08 AM', '08 AM - 09 AM', '09 AM - 10 AM', '10 AM - 11 AM', '11 AM - 12 PM',
-                      '12 PM - 01 PM', '01 PM - 02 PM', '02 PM - 03 PM', '03 PM - 04 PM', '04 PM - 05 PM', '05PM - 06 PM', '06 PM - 07 PM', '07 PM - 08 PM', '08 PM - 09 PM', '09 PM - 10 PM']
+                      '12 PM - 01 PM', '01 PM - 02 PM', '02 PM - 03 PM', '03 PM - 04 PM', '04 PM - 05 PM',
+                    '05PM - 06 PM', '06 PM - 07 PM', '07 PM - 08 PM', '08 PM - 09 PM', '09 PM - 10 PM']
+        self.courses_taken = []
         self.setWindowTitle("My Schedule")
         # create table
         self.setGeometry(qtc.QRect(0, 0, 700, 455))
@@ -65,6 +67,21 @@ class ScheduleTable(qtw.QTableWidget):
                 hour_index = self.hours.index(hour)
                 self.setItem(
                     hour_index, day_index, qtw.QTableWidgetItem(course_name))
+        self.courses_taken.append(course)
+    
+    def drop_course(self, course):
+
+        course_name = course['name']
+        course_schedule = course['schedule']
+
+        for day in course_schedule:
+            day_key = list(day.keys())[0]
+            day_index = self.days.index(day_key)
+            for hour in day[day_key]:
+                hour_index = self.hours.index(hour)
+                self.setItem(
+                    hour_index, day_index, qtw.QTableWidgetItem(''))
+        self.courses_taken.remove(course)
 
 class LoginForm(qtw.QWidget):
 
@@ -118,7 +135,7 @@ class LoginForm(qtw.QWidget):
 
 class CourseDisplay(qtw.QWidget):
 
-    submitted = qtc.pyqtSignal(str)
+    submitted = qtc.pyqtSignal(str, str)
 
     def __init__(self, course, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -140,7 +157,7 @@ class CourseDisplay(qtw.QWidget):
                 
         self.course_schedule = qtw.QLabel(f"Course Schedule: {schedule_text}")
 
-        self.submit_button = qtw.QPushButton('Take COurse', clicked = self.on_submit)
+        self.submit_button = qtw.QPushButton('Take Course', clicked = self.on_submit)
 
 
         self.layout().addRow('', self.course_name)
@@ -150,7 +167,7 @@ class CourseDisplay(qtw.QWidget):
         self.layout().addRow('', self.submit_button)
     
     def on_submit(self):
-        self.submitted.emit(self.course['name'])
+        self.submitted.emit(self.course['name'], self.submit_button.text())
 
 class SearchWidget(qtw.QWidget):
 
@@ -214,10 +231,18 @@ class Schedule(qtw.QMainWindow):
     def add_course(self, course):
         self.courses.append(course)
     
-    def take_course(self, course_name):
-        for course in self.courses:
-            if course['name'] == course_name:
-                self.table_widget.add_course(course)
+    def take_course(self, course_name, btn_text):
+        if btn_text == "Take Course":
+            for course in self.courses:
+                if course['name'] == course_name:
+                    self.table_widget.add_course(course)
+            self.current_course_widget.children()[5].setText('Drop Course')
+        elif btn_text == "Drop Course":
+            for course in self.courses:
+                if course['name'] == course_name:
+                    self.table_widget.drop_course(course)
+            self.current_course_widget.children()[5].setText('Take Course')
+
 
     
     def user_logged_in(self, username):
@@ -237,6 +262,8 @@ class Schedule(qtw.QMainWindow):
                 if self.current_course_widget:
                     self.current_course_widget.close()
                 self.current_course_widget = course_widget
+                if course in self.table_widget.courses_taken:
+                    self.current_course_widget.children()[5].setText('Drop Course')
                 self.search_widget.layout().addRow(course_widget)
                 
                 # qtw.QMessageBox.information(self, 'Sucess', f'{course["name"]} found')
